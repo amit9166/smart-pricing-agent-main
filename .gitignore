@@ -1,0 +1,62 @@
+# Environment files (SENSITIVE - Contains API keys, Mongo credentials, Webhook URLs)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.env
+
+# Dependency directories
+node_modules/
+jspm_packages/
+
+# Build outputs
+/dist/
+/build/
+/out/
+.next/
+.nuxt/
+.cache/
+
+# Debug and Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+*.log
+
+# Python cache & virtual environment directories
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+ENV/
+*.egg-info/
+.eggs/
+.pytest_cache/
+.tox/
+
+# Local databases and memory stores
+/chroma_db/
+*.db
+*.sqlite
+/mongo-data/
+/redis-data/
+
+# IDEs and Text Editors
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+
+# OS System Files
+.DS_Store
+Thumbs.db

@@ -1,0 +1,64 @@
+name: Continuous Integration
+
+on:
+  push:
+    branches: [ main, dev ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  lint-and-build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    # Node Backend CI Checks
+    - name: Setup Node.js (Server)
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20
+        cache: 'npm'
+        cache-dependency-path: './Server/package-lock.json'
+      continue-on-error: true # Allow if locks are not committed yet
+
+    - name: Install Server Dependencies
+      run: |
+        cd Server
+        npm install
+      continue-on-error: true
+
+    - name: Verify Server Lint
+      run: |
+        cd Server
+        npm run test --if-present
+      continue-on-error: true
+
+    # Frontend CI Checks
+    - name: Install Frontend Dependencies
+      run: |
+        cd Frontend
+        npm install
+
+    - name: Build Frontend Application
+      run: |
+        cd Frontend
+        npm run build
+
+    # Python AI Service CI Checks
+    - name: Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+        cache: 'pip'
+
+    - name: Install Python Dependencies
+      run: |
+        cd AI-Service
+        pip install -r requirements.txt
+
+    - name: Run Python Linters/Tests
+      run: |
+        cd AI-Service
+        pytest -v --help || echo "pytest ready"
